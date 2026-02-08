@@ -14,18 +14,19 @@
     body {
       margin: 0;
       min-height: 100vh;
+      height: auto;
 
-      /* SCREEN 1 background */
+      /* SCREEN 1 background (mobile safe) */
       background-image: url("bg1.jpg");
       background-repeat: no-repeat;
       background-position: top center;
-      background-size: contain;
+      background-size: 100% auto;
       background-attachment: scroll;
       background-color: #ffe6ec;
 
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
 
       transition: background-image 0.8s ease-in-out;
     }
@@ -33,12 +34,14 @@
     .screen {
       display: none;
       text-align: center;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.92);
       padding: 30px;
       border-radius: 20px;
       width: 90%;
       max-width: 420px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin-top: 120px;
+      margin-bottom: 120px;
     }
 
     .screen.active {
@@ -56,15 +59,9 @@
       font-weight: normal;
     }
 
-    /* Heart animation (Screen 2) */
     .heart {
-        font-size: 32px;
-  vertical-align: middle;    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
+      font-size: 32px;
+      vertical-align: middle;
     }
 
     /* Carousel (Screen 1 ONLY) */
@@ -118,12 +115,21 @@
       background: #ccc;
       position: absolute;
     }
+
+    /* Proposal paragraph */
+    .love-text {
+      font-size: 15px;
+      line-height: 1.7;
+      margin-top: 18px;
+      color: #333;
+      text-align: center;
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- SCREEN 1 (UNCHANGED) -->
+  <!-- SCREEN 1 -->
   <div class="screen active" id="screen1">
     <h1><b>Would you be Babudi’s Valentine? ❤️</b></h1>
 
@@ -143,29 +149,28 @@
     </div>
   </div>
 
-  <!-- SCREEN 2 (UPDATED) -->
+  <!-- SCREEN 2 -->
   <div class="screen" id="screen2">
-  <h1 class="title">
-    Happy Propose Day <span class="heart">💍</span>
-  </h1>
-  <h2 class="subtitle">
-    I Love You, My Chabudi ❤️
-  </h2>
-<p class="love-text">
-  It has been more than two years since I fell in love with you, and the time has flown by like an aeroplane. We are 24 now, and every moment with you has only made my feelings stronger. You have the most beautiful smile, the most beautiful eyebrows, the most beautiful hair, and the most beautiful personality, and I absolutely adore you.
-  <br><br>
-  I want to take a moment to thank you for standing by me during the hard times. You showed me exactly why I should adore you, even when I might not have fully proved myself yet. The journey hasn’t been easy and has come with many hurdles, but I promise you that I am working hard to fill the gaps and become better every day.
-  <br><br>
-  In 2024 itself, I decided in my heart that I want to spend the rest of my life with you. After spending time with you, I fell deeply in love and have never even thought about another woman. I hope I land a great job and that too in Mumbai as soon as possible, so that we can spend time together and experience a new chapter of our lives as partners, in person.
-  <br><br>
-  Wishing you great success and a very Happy Propose Day (on my knees), virtually until I can see you again.
-</p>
+    <h1>
+      Happy Propose Day <span class="heart">💍</span>
+    </h1>
+    <h2>
+      I Love You, My Chabudi ❤️
+    </h2>
 
-</div>
-
+    <p class="love-text">
+      It has been more than two years since I fell in love with you, and the time has flown by like an aeroplane. We are 24 now, and every moment with you has only made my feelings stronger. You have the most beautiful smile, the most beautiful eyebrows, the most beautiful hair, and the most beautiful personality, and I absolutely adore you.
+      <br><br>
+      I want to take a moment to thank you for standing by me during the hard times. You showed me exactly why I should adore you, even when I might not have fully proved myself yet. The journey hasn’t been easy and has come with many hurdles, but I promise you that I am working hard to fill the gaps and become better every day.
+      <br><br>
+      In 2024 itself, I decided in my heart that I want to spend the rest of my life with you. After spending time with you, I fell deeply in love and have never even thought about another woman. I hope I land a great job and that too in Mumbai as soon as possible, so that we can spend time together and experience a new chapter of our lives as partners, in person.
+      <br><br>
+      Wishing you great success and a very Happy Propose Day (on my knees), virtually until I can see you again.
+    </p>
+  </div>
 
 <script>
-  /* Carousel logic (Screen 1 only) */
+  /* Carousel logic */
   function startCarousel(id) {
     const images = document.querySelectorAll(`#${id} img`);
     let index = 0;
@@ -187,17 +192,19 @@
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
   });
 
-  /* Yes button → Screen 2 💖 */
+  /* Yes button → Screen 2 */
   document.getElementById("yesBtn").addEventListener("click", () => {
     document.getElementById("screen1").classList.remove("active");
     document.getElementById("screen2").classList.add("active");
 
-    /* SCREEN 2 background */
     document.body.style.backgroundImage = "url('2bg1.jpeg')";
     document.body.style.backgroundSize = "100% auto";
     document.body.style.backgroundPosition = "top center";
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundAttachment = "scroll";
+
+    /* Force mobile repaint */
+    document.body.style.minHeight = "200vh";
   });
 </script>
 
