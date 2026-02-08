@@ -11,24 +11,28 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      height: auto;
-
-      /* SCREEN 1 background (mobile safe) */
-      background-image: url("bg1.jpg");
+    /* 🔹 Dedicated background layer (IMPORTANT FIX) */
+    #bg-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("bg1.jpg"); /* Screen 1 bg */
       background-repeat: no-repeat;
       background-position: top center;
       background-size: 100% auto;
-      background-attachment: scroll;
       background-color: #ffe6ec;
+      z-index: -1;
+      transition: background-image 0.8s ease-in-out;
+    }
 
+    body {
+      margin: 0;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-
-      transition: background-image 0.8s ease-in-out;
     }
 
     .screen {
@@ -129,6 +133,9 @@
 
 <body>
 
+  <!-- 🔹 Background layer -->
+  <div id="bg-layer"></div>
+
   <!-- SCREEN 1 -->
   <div class="screen active" id="screen1">
     <h1><b>Would you be Babudi’s Valentine? ❤️</b></h1>
@@ -192,27 +199,15 @@
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
   });
 
-  /* Yes button → Screen 2 */
+  /* Yes button → Screen 2 (BACKGROUND FIXED HERE) */
   document.getElementById("yesBtn").addEventListener("click", () => {
-  document.getElementById("screen1").classList.remove("active");
-  document.getElementById("screen2").classList.add("active");
+    document.getElementById("screen1").classList.remove("active");
+    document.getElementById("screen2").classList.add("active");
 
-  document.body.style.backgroundImage = "url('bg1.jpg')";
-  document.body.style.backgroundSize = "100% auto";
-  document.body.style.backgroundPosition = "top center";
-  document.body.style.backgroundRepeat = "no-repeat";
-  document.body.style.backgroundAttachment = "scroll";
-
-  /* Force mobile repaint */
-  document.body.style.minHeight = "200vh";
-});
-
+    document.getElementById("bg-layer").style.backgroundImage =
+      "url('bg2.jpg')";  /* 🔹 PUT YOUR SCREEN 2 IMAGE NAME HERE */
+  });
 </script>
 
 </body>
 </html>
-
-
-
-
-
